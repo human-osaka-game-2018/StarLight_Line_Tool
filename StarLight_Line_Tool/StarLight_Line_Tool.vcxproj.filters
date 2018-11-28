@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Class">
+      <UniqueIdentifier>{476f9434-2d79-4e6f-baa8-78c4e7158dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Singleton">
+      <UniqueIdentifier>{de4aaabd-112e-40e7-911d-25d8dfa91f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib">
+      <UniqueIdentifier>{9e2c7a4c-f665-4ddb-bc13-d2e8f7140f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\Wnd">
+      <UniqueIdentifier>{a58dfa25-185c-4826-8116-b74f03b20a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX">
+      <UniqueIdentifier>{754e404b-2c54-4c17-8b8c-129dc05e4a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D">
+      <UniqueIdentifier>{fdeb7d07-4575-434d-9e5d-f0665c9d0d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DXInput">
+      <UniqueIdentifier>{fee3217c-e5be-47c2-8c6c-54950aa4a698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\Camera">
+      <UniqueIdentifier>{1469507a-2a24-4057-a494-e44b933d0534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\ColorBlender">
+      <UniqueIdentifier>{a5cbda0e-8a4b-45e1-9140-d999a0c812a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\CustomVertexEditor">
+      <UniqueIdentifier>{a111770e-7b94-479e-99c8-b48710178360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DXInput\InputDev">
+      <UniqueIdentifier>{129238c6-2488-40ba-9dca-06806bfc04b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DXInput\InputDev\Mouse">
+      <UniqueIdentifier>{01bf814e-5256-483e-bac3-e6f2fce2775f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DXInput\InputDev\Keyboard">
+      <UniqueIdentifier>{357d788e-b5a7-4b63-8038-28814221820f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\TexStorage">
+      <UniqueIdentifier>{65bb6956-207d-4138-85d7-a2ecbae4dbdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\D3DPP">
+      <UniqueIdentifier>{983a517e-b66d-41ce-9b28-eabe4fdce402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\Light">
+      <UniqueIdentifier>{9d26b08a-c625-478e-a6bb-c99c7405b11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\Renderer">
+      <UniqueIdentifier>{19855f31-332e-49f3-9f0d-d433c53b86c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{8105f22e-1cbd-4057-9eb6-3bcee876702f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking">
+      <UniqueIdentifier>{26742d65-9e9f-42b8-96b3-31f520d835af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager">
+      <UniqueIdentifier>{a48a2863-de58-43bc-881b-62ee4f25424f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene">
+      <UniqueIdentifier>{f7d25a0d-8fb8-4c2c-a9db-64cdc2d48b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\TitleScene">
+      <UniqueIdentifier>{fc00e2fe-f459-4188-8e67-3c43070df8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\CustomVertexEditor\Data">
+      <UniqueIdentifier>{74969a96-e2c9-41d8-b01d-6522f00981ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\Wnd\Data">
+      <UniqueIdentifier>{7d8a15e2-8a0e-4992-bd5e-a09b441bde9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DXInput\InputDev\Mouse\Enum">
+      <UniqueIdentifier>{f7154b27-688b-4cd7-abb9-d1315a9d2b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\Enum">
+      <UniqueIdentifier>{5d74bf23-2d6d-4649-b50c-af6fcac03cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene">
+      <UniqueIdentifier>{da3a2aaa-a3b4-4449-9b02-cddd9937d391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\FbxStorage">
+      <UniqueIdentifier>{66b79674-a694-430f-abd2-cd25e2325329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\FbxStorage\FbxRelated">
+      <UniqueIdentifier>{146674e0-72ca-4767-bf22-522594dd8a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxModel">
+      <UniqueIdentifier>{d20a9105-0bbf-4a1c-b6ca-b45545d5618a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene\Enum">
+      <UniqueIdentifier>{90488cf5-4000-4a33-86fc-896aa5d3ffc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\SaveDataScene">
+      <UniqueIdentifier>{ec33f56e-4ab9-4d36-9e04-4c0854c32bec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\StageEditScene">
+      <UniqueIdentifier>{51b50085-6a7e-4b19-8d30-ea27e979ea40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager">
+      <UniqueIdentifier>{e2dde8e6-d454-4802-92ea-e98069f0e0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj">
+      <UniqueIdentifier>{f2d24b02-e207-4914-a065-299a27100f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Enum">
+      <UniqueIdentifier>{e8c736f1-3d5c-48f8-86e7-9eb744f294ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj">
+      <UniqueIdentifier>{7a98d0b7-6971-407b-af63-f02768a923c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj">
+      <UniqueIdentifier>{23d9e1e2-581b-4bb8-b81b-6da0dcf37d0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj">
+      <UniqueIdentifier>{da3b01f8-7068-4de0-9d3e-73dde20f81d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj">
+      <UniqueIdentifier>{4b7e2f0f-b41b-4e8c-8c15-0b8708a949f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Class\Singleton\Singleton.cpp">
+      <Filter>Class\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX.cpp">
+      <Filter>GameLib\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\Wnd\Wnd.cpp">
+      <Filter>GameLib\Wnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\DX3D.cpp">
+      <Filter>GameLib\DX\DX3D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DXInput\DXInput.cpp">
+      <Filter>GameLib\DX\DXInput</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\Camera\Camera.cpp">
+      <Filter>GameLib\DX\DX3D\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\ColorBlender\ColorBlender.cpp">
+      <Filter>GameLib\DX\DX3D\ColorBlender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\CustomVertexEditor\CustomVertexEditor.cpp">
+      <Filter>GameLib\DX\DX3D\CustomVertexEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\TexStorage\TexStorage.cpp">
+      <Filter>GameLib\DX\DX3D\TexStorage</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DXInput\InputDev\InputDev.cpp">
+      <Filter>GameLib\DX\DXInput\InputDev</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DXInput\InputDev\Keyboard\Keyboard.cpp">
+      <Filter>GameLib\DX\DXInput\InputDev\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\D3DPP\D3DPP.cpp">
+      <Filter>GameLib\DX\DX3D\D3DPP</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\Light\Light.cpp">
+      <Filter>GameLib\DX\DX3D\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\Renderer\Renderer.cpp">
+      <Filter>GameLib\DX\DX3D\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Main\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\IBaseWorking.cpp">
+      <Filter>Class\IBaseWorking</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\GameLib.cpp">
+      <Filter>GameLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\SceneManager.cpp">
+      <Filter>Class\IBaseWorking\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\Scene.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\TitleScene\TitleScene.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\ObjManager.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Obj.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj\TitleSceneObj.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene\StageSelectScene.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj\StageSelectSceneObj.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxRelated.cpp">
+      <Filter>GameLib\DX\DX3D\FbxStorage\FbxRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxModel\FbxModel.cpp">
+      <Filter>GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxModel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DX3D\FbxStorage\FbxStorage.cpp">
+      <Filter>GameLib\DX\DX3D\FbxStorage</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\SaveDataScene\SaveDataScene.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\SaveDataScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj\SaveDataSceneObj.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\StageEditScene\StageEditScene.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageEditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageEditSceneObj.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\DX\DXInput\InputDev\Mouse\Mouse.cpp">
+      <Filter>GameLib\DX\DXInput\InputDev\Mouse</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Class\Singleton\Singleton.h">
+      <Filter>Class\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX.h">
+      <Filter>GameLib\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\Wnd\Wnd.h">
+      <Filter>GameLib\Wnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\DX3D.h">
+      <Filter>GameLib\DX\DX3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DXInput\DXInput.h">
+      <Filter>GameLib\DX\DXInput</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\Camera\Camera.h">
+      <Filter>GameLib\DX\DX3D\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\ColorBlender\ColorBlender.h">
+      <Filter>GameLib\DX\DX3D\ColorBlender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\CustomVertexEditor\CustomVertexEditor.h">
+      <Filter>GameLib\DX\DX3D\CustomVertexEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\TexStorage\TexStorage.h">
+      <Filter>GameLib\DX\DX3D\TexStorage</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DXInput\InputDev\InputDev.h">
+      <Filter>GameLib\DX\DXInput\InputDev</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DXInput\InputDev\Keyboard\Keyboard.h">
+      <Filter>GameLib\DX\DXInput\InputDev\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DXInput\InputDev\Mouse\Mouse.h">
+      <Filter>GameLib\DX\DXInput\InputDev\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\D3DPP\D3DPP.h">
+      <Filter>GameLib\DX\DX3D\D3DPP</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\Light\Light.h">
+      <Filter>GameLib\DX\DX3D\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\Renderer\Renderer.h">
+      <Filter>GameLib\DX\DX3D\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\GameLib.h">
+      <Filter>GameLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Main\Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\IBaseWorking.h">
+      <Filter>Class\IBaseWorking</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\SceneManager.h">
+      <Filter>Class\IBaseWorking\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\TitleScene\TitleScene.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\ObjManager.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Obj.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\Scene.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\CustomVertexEditor\Data\CustomVertex.h">
+      <Filter>GameLib\DX\DX3D\CustomVertexEditor\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\CustomVertexEditor\Data\ObjData.h">
+      <Filter>GameLib\DX\DX3D\CustomVertexEditor\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DXInput\InputDev\Mouse\Enum\DIM.h">
+      <Filter>GameLib\DX\DXInput\InputDev\Mouse\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\Enum\SCENE_KIND.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\Wnd\Data\RectSize.h">
+      <Filter>GameLib\Wnd\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Enum\OBJ_TYPE.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj\TitleSceneObj.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene\StageSelectScene.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj\StageSelectSceneObj.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxRelated.h">
+      <Filter>GameLib\DX\DX3D\FbxStorage\FbxRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxModel\FbxModel.h">
+      <Filter>GameLib\DX\DX3D\FbxStorage\FbxRelated\FbxModel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\DX\DX3D\FbxStorage\FbxStorage.h">
+      <Filter>GameLib\DX\DX3D\FbxStorage</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene\Enum\STAGE_KIND.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageSelectScene\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\StageSelectScene\Enum\STAGE_LEVEL_KIND.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageSelectScene\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\SaveDataScene\SaveDataScene.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\SaveDataScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj\SaveDataSceneObj.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\StageEditScene\StageEditScene.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\StageEditScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageEditSceneObj.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="UML.txt">
+      <Filter>リソース ファイル</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

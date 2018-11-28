@@ -1,0 +1,324 @@
+'GetInstanceは実体の参照を返すだけで生成はしない
+'継承元のCreateを行ってからGetInstanceする
+class Singleton
+{
+# {static} m_pInstance : std::unique<T>
+
++ {static} GetInstance() : const T&
++ Release() : VOID
+
+# Ctor()
+}
+
+'GameLibのインターフェイス
+'D3DPP DX3D DXInput クラスに関係する
+interface IWnd
+{
++ {abstract} GetHWND() : const HWND&
++ {abstract} GetWndSize() : D3DXVECTOR2
+}
+
+'DX3D クラスに関係する
+interface IDX
+{
+'DX3DDevを作成するときのみ用いる
++ {abstract} GetLPDIRECT3D9() : const LPDIRECT3D9&
+}
+
+'Wnd Camera ColorBlender Light TexStorage Renderer に関係する
+interface IDX3D
+{
++ {abstract} GetLPDIRECT3DDEVICE9() : const LPDIRECT3DDEVICE9&
+
+'Wndクラスの LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM)で用いる
+'使用時DX3DDevがロストする可能性がある
++ {abstract} ToggleWndMode() : VOID
+}
+
+'DX3Dクラスに関係する
+interface ID3DPP
+{
++ {abstract} GetD3DPRESENT_PARAMETERS() : const D3DPRESENT_PARAMETERS&
+}
+
+'Singleton IWnd IDX IDX3Dを継承する
+class GameLib
+{
+friend class Singleton
+- m_pWND : Wnd*
+- m_pDX : DX*
+- m_pD3DPP : D3DPP*
+- m_pDX3D : DX3D*
+- m_pCamera : Camera*
+- m_pLightSetter : Light*
+- m_pColorBlender : ColorBlender*
+- m_pTexStorage : TexStorage*
+- m_pRenderer : Renderer*
+- m_pDXInput : DXInput*
+- m_pCustomVertexEditor : CustomVertexEditor*
+
+'メンバイニシャライザでGetterを用いて参照を初期化
+- m_rHWnd : HWND&
+- m_rMSG : MSG&
+- m_rD3D : LPDIRECT3D9&
+- m_rD3DPP : D3DPRESENT_PARAMETERS&
+- m_rInputStates : InputStates&
+
+'SingletonクラスのGetInstanceはこのメソッドを呼び出してから
++ {static} Create(const HINSTANCE,VOID(*pFunc)(),TCHAR* pAppName) : VOID
+
+'各クラスが保持しているメソッドのラッパがある
+}
+
+'WinMainからHINSTANCEを取得する
+class Wnd
+{
+- m_hWnd : HWND
+- m_msg : MSG
+- m_WND_SIZE : D3DXVECTOR2
+- m_pIDX3D : IDX3D*
+
+'Crate()を呼ぶ
++ Ctor(const HINSTANCE hInst,const TCHAR* pAppName, IDX3D*)
+
++ GetHWND() : const HWND&
++ GetMSG() : const MSG&
++ GetWndSize() : D3DXVECTOR2
+
++ ExistsWinMSG() : BOOL
+
+- Create(const HINSTANCE hInst,const TCHAR* pAppName) : VOID
+
+'ウィンドウを生成するときにProcの関数ポインタが必要なのでstatic
+'IDX3D経由でDX3DのメソッドToggleWndMode()を用いる
+- {static} WndProc(HWND, UINT, WPARAM, LPARAM) : LRESULT CALLBACK
+}
+
+class DX
+{
+- m_pD3D : LPDIRECT3D9
+
+'Create()を呼ぶ
++ Ctor()
+
+'DX3DDevを作成するときのみ用いる
++ GetLPDIRECT3D9() : const &LPDIRECT3D9
+
+'他DX機能の基盤となるので初めに生成する
+- Create() : VOID
+}
+
+'初めのウィンドウモードはウィンドウ固定
+'IWnd経由でWndクラスからHWNDをもらう
+class D3DPP
+{
+'現在使用しているD3DPPを作ることで切替時に考慮しなくてもいいようにする
+- m_usingD3DPP : D3DPRESENT_PARAMETERS
+- m_fullscreenD3DPP : D3DPRESENT_PARAMETERS
+- m_windowD3DPP : D3DPRESENT_PARAMETERS
+
+'InitD3DPP(HWND)をよぶ
++ Ctor(const IWnd*)
+
+'DX3DDevを作成するときとウィンドウモードを切り替えるときに用いる
++ GetD3DPRESENT_PARAMETERS() : D3DPRESENT_PARAMETERS&
+
+'切り替えた後にD3DPPを再度入手する必要はない
++ ToggleD3DPPWndMode() : VOID
+
+- InitD3DPP(HWND) :VOID
+}
+
+'初めのウィンドウモードはウィンドウ固定
+'IWndクラスからHWND,ウィンドウのサイズ IDXクラスからLPDIRECT3D9 ID3DPPクラスからD3DPRESENT_PARAMETERSをもらう
+class DX3D
+{
+- m_pDX3DDev : LPDIRECT3DDEVICE9
+
+'毎回取得しなくてもいいように保存
+'メンバイニシャライザで初期化
+- m_rD3DPP : D3DPRESENT_PARAMETERS&
+- m_rHWND : HWND&
+
+'Create(LPDIRECT3D9) InitViewPort()を呼ぶ
++ Ctor(const IWnd*, const IDX*, const ID3PP*)
+
+'Camera ColorBlender Light TexStorage Renderer でIDX3Dを経由して用いる
++ GetLPDIRECT3DDEVICE9() : const LPDIRECT3DDEVICE9&
+
+'Rendererクラスでもいいが使用者が考えることが増えるためこのクラスにいれた
+'メインループの始まりで用いる
++ PrepareRendering() : VOID
+'メインループの終わりで用いる
++ CleanUpRendering() : VOID
+
+'使用時DX3DDevがロストする可能性がある
++ ToggleWndMode() : VOID
+
+'先にDXクラスを生成する
+- Create(LPDIRECT3D9) : VOID
+
+'描画する距離の初期化を行う
+- InitViewPort() : VOID
+}
+
+'IDX3DからLPDIRECT3DDEVICE9を取得
+class Camera
+{
+'メンバイニシャライザで初期化
+- m_rPDX3DDev : LPDIRECT3DDEVICE9&
+
+- m_matView : D3DXMATRIX
+
++ Ctor(const IDX3D*)
+
+'nearの値が0.0fの場合物体のz値が1.0fにすべて固定されるので注意
++ SetClipSpace();
+
+'viewの逆行列をかけるのでCameraクラスが保持
++ TransMatBillBoard(const D3DXMATRIX&) : VOID
+}
+
+'IDX3DからLPDIRECT3DDEVICE9を取得
+class ColorBlender
+{
+'メンバイニシャライザで初期化
+- m_rPDX3DDev : LPDIRECT3DDEVICE9&
+
++ Ctor(const IDX3D*)
+
+'ウィンドウモードを変更した際にリセットされるので呼ぶ
++ UseDefault() : VOID
+
++ SetRenderState(D3DRENDERSTATETYPE, DWORD value) : VOID
+'テクスチャ階層は0固定
++ SetTexState(D3DTEXTURESTAGESTATETYPE, DWORD value) : VOID
+}
+
+'IDX3DからLPDIRECT3DDEVICE9を取得
+class Light
+{
+'メンバイニシャライザで初期化
+- m_rPDX3DDev : LPDIRECT3DDEVICE9&
+
++ Ctor(const IDX3D*)
+
+'DirectionLightはRangeが変わらない
++ SetLight(const D3DLIGHT9& rLight, const INT lightIndex) : VOID
+}
+
+'IDX3DからLPDIRECT3DDEVICE9を取得
+class TexStorage
+{
+'メンバイニシャライザで初期化
+- m_rPDX3DDev : LPDIRECT3DDEVICE9&
+
+- m_mPTextures : std::map<const TCHAR*, LPDIRECT3DTEXTURE9>
+
++ Ctor(const IDX3D*)
+
++ GetTex(const TCHAR* pTexName) : LPDIRECT3DTEXTURE9
+
++ CreateTex(const TCHAR* pTexName, const TCHAR* pTexPath) : VOID
++ ReleaseTex() : VOID
+}
+
+'IDX3DからLPDIRECT3DDEVICE9を取得
+class Renderer
+{
+'メンバイニシャライザで初期化
+- m_rPDX3DDev : LPDIRECT3DDEVICE9&
+
++ Ctor(const IDX3D*)
+
++ Render(const CustomVertex* pCustomVertices,\n const LPDIRECT3DTEXTURE9) : VOID
++ Render(const FbxRelated&, const D3DXMATRIX& rMatWorld,\n const LPDIRECT3DTEXTURE9) : VOID
+}
+
+'IWnd経由でWndクラスからHWNDをもらう
+class DXInput
+{
+'メンバイニシャライザで初期化
+- m_pIDX3D : IDX3D*
+- m_rHWND : HWND&
+
+- m_pDXInput : LPDIRECTINPUT8 
+- m_pDInputDevs[デバイスの最大数] : LPDIRECTINPUTDEVICE8
+- m_pInputStates : InputStates
+
+'Create()を呼ぶ
++ Ctor(const IWnd*)
+
+'取得は一度だけでいい
++ GetInputStates() : const InputStates&
+
+'メインループの終わりで用いる
++ StorePrevInputStates() : VOID
+'メインループの始まりで用いる
++ UpdataInputStates() : VOID
+'UpdataInputStates()を用いた後に呼ぶ
++ CheckInputStatesDetatils() : VOID
+
+'マウスもキーボードもInputDevとしてまとめて作成する
+- Create() : VOID
+}
+
+class CustomVertexEditor
+{
+'中心座標から矩形を作成する
++ CreateRect(CustomVertex* pCustomVertices,\n const D3DXVECTOR3& rCenter, const D3DXVECTOR2& rHalfScale,\n DWORD aRGB,\n FLOAT startTU, FLOAT startTV, FLOAT endTU, FLOAT endTV) : VOID
+'矩形を生成した後回転も行う
++ CreateRect(CustomVertex* pCustomVertices, const ObjData&) : VOID
+
+'rRelativeRotateCenterは回転の中心を矩形の中心からどのくらいずらすか
++ RotateX(CustomVertex* pCustomVertices, FLOAT degree,\n const D3DXVECTOR3& rRelativeRotateCenter) : VOID
++ RotateY(CustomVertex* pCustomVertices, FLOAT degree,\n const D3DXVECTOR3& rRelativeRotateCenter) : VOID
++ RotateZ(CustomVertex* pCustomVertices, FLOAT degree,\n const D3DXVECTOR3& rRelativeRotateCenter) : VOID
+
+'pCustomVerticesの座標が呼出し後rMovement増加する
++ Move(CustomVertex* pCustomVertices, const D3DXVECTOR3& rMovement) : VOID
+'pCustomVerticesの座標が呼出し後rPosと同じ値になる
++ Locale(CustomVertex* pCustomVertices, const D3DXVECTOR3& rPos) : VOID
+
++ SetTexUV(CustomVertex* pCustomVertices,\n FLOAT startTU, FLOAT startTV, FLOAT endTU, FLOAT endTV) : VOID
+
++ ChangeARGB(CustomVertex* pCustomVertices, DWORD aRBG) : VOID
+}
+
+Singleton <|-d- GameLib
+IWnd <|-r- GameLib
+IDX <|-r- GameLib
+IDX3D <|-u- GameLib
+ID3DPP <|-- GameLib
+
+IWnd o-d- D3DPP
+IWnd o-d- DX3D
+IWnd o-u- DXInput
+
+IDX o-- DX3D
+
+IDX3D o-- Wnd
+IDX3D o-- ColorBlender
+IDX3D o-- Camera
+IDX3D o-- Light
+IDX3D o-- CustomVertexEditor
+IDX3D o-- TexStorage
+IDX3D o-- Renderer
+
+ID3DPP o-- DX3D
+
+GameLib *-- Wnd
+GameLib *-u- DX
+GameLib *-- D3DPP
+GameLib *-- DX3D
+GameLib *-- ColorBlender
+GameLib *-- Camera
+GameLib *-- Light
+GameLib *-- CustomVertexEditor
+GameLib *-l- TexStorage
+GameLib *-- Renderer
+GameLib *-u- DXInput
+
+Light -[hidden]u- Renderer
+Renderer -[hidden]u- Wnd
+TexStorage -[hidden]u- ColorBlender

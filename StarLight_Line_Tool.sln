@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StarLight_Line_Tool", "StarLight_Line_Tool\StarLight_Line_Tool.vcxproj", "{E44B7CE9-C95E-4C29-AFB0-994995917879}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Debug|x64.ActiveCfg = Debug|x64
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Debug|x64.Build.0 = Debug|x64
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Debug|x86.ActiveCfg = Debug|Win32
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Debug|x86.Build.0 = Debug|Win32
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Release|x64.ActiveCfg = Release|x64
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Release|x64.Build.0 = Release|x64
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Release|x86.ActiveCfg = Release|Win32
+		{E44B7CE9-C95E-4C29-AFB0-994995917879}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAC3248C-3956-4B33-B663-89971F31FD50}
+	EndGlobalSection
+EndGlobal
