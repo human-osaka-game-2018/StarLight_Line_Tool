@@ -1,0 +1,12 @@
+﻿#ifndef STAGE_LEVEL_KIND
+#define STAGE_LEVEL_KIND
+
+enum STAGE_LEVEL_KIND
+{
+	SLK_EASY,
+	SLK_NORMAL,
+	SLK_HARD,
+	SLK_MAX
+};
+
+#endif // !STAGE_LEVEL_KIND
