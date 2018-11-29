@@ -1,0 +1,12 @@
+﻿#ifndef STAR_TYPE_H
+#define STAR_TYPE_H
+
+enum STAR_TYPE
+{
+	STAR_DAMAGE,
+	STAR_SCORE,
+	STAR_CLEAR,
+	STAR_MAX
+};
+
+#endif // !STAR_TYPE_H

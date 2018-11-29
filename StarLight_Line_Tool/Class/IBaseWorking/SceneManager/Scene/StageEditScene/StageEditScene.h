@@ -12,8 +12,7 @@ class StageEditScene :public Scene
 public:
 	StageEditScene()
 	{
-		m_pObjManager->Resister(static_cast<Obj*>(new StageEditBack()));
-		m_pObjManager->Resister(static_cast<Obj*>(new StageEditStars()));
+		m_pObjManager->Resister(static_cast<Obj*>(new StageEditStageEditor()));
 	}
 
 	~StageEditScene() {};
