@@ -15,6 +15,7 @@
 #include "../Class/Singleton/Singleton.h"
 #include "Wnd\Wnd.h"
 #include "DX\DX.h"
+#include "Collision\Collision.h"
 #include "DX\DX3D\CustomVertexEditor\Data\CustomVertex.h"
 #include "DX\DX3D\CustomVertexEditor\Data\ObjData.h"
 
@@ -28,6 +29,7 @@ public:
 
 	~GameLib()
 	{
+		delete m_pCollision;
 		delete m_pDX;
 		delete m_pWnd;
 	};
@@ -41,10 +43,13 @@ public:
 	{
 		if (m_pWnd) return;
 		if (m_pDX) return;
+		if (m_pCollision) return;
 
 		m_pWnd = new Wnd(hInst, pAppName);
 
 		m_pDX = new DX(m_pWnd->GetHWND(), m_pWnd->GetWndSize());
+
+		m_pCollision = new Collision();
 
 		GetInstance();
 	}
@@ -335,12 +340,29 @@ public:
 		return m_pDX->KeyboardAnyKeyIsPressed();
 	}
 
+	inline BOOL CollidesCircles(const ObjData& A, const ObjData& B) const
+	{
+		return m_pCollision->CollidesCircles(A, B);
+	}
+
+	inline BOOL CollidesCircles(const CustomVertex* pA, const CustomVertex* pB) const
+	{
+		return m_pCollision->CollidesCircles(pA, pB);
+	}
+
+	inline BOOL CollidesRects(const CustomVertex* pObjA, const CustomVertex* pObjB) const
+	{
+		return m_pCollision->CollidesRects(pObjA, pObjB);
+	}
+
 private:
 	GameLib() {};
 
 	static Wnd* m_pWnd;
 
 	static DX* m_pDX;
+
+	static Collision* m_pCollision;
 };
 
 #endif //! GAME_LIB_H
