@@ -125,6 +125,12 @@
     <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj">
       <UniqueIdentifier>{4b7e2f0f-b41b-4e8c-8c15-0b8708a949f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameLib\Collision">
+      <UniqueIdentifier>{c41b1a9b-1eec-421c-8167-02046f3b3506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum">
+      <UniqueIdentifier>{a4bf03b8-d4c7-4160-adda-1c9593c1bad7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class\Singleton\Singleton.cpp">
@@ -225,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="GameLib\DX\DXInput\InputDev\Mouse\Mouse.cpp">
       <Filter>GameLib\DX\DXInput\InputDev\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLib\Collision\Collision.cpp">
+      <Filter>GameLib\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +359,15 @@
     </ClInclude>
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageEditSceneObj.h">
       <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLib\Collision\Collision.h">
+      <Filter>GameLib\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum\STAR_TYPE.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum\Y_VEC.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
