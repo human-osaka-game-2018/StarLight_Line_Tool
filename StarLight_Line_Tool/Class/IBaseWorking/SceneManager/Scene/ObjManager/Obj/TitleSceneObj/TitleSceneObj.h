@@ -98,8 +98,8 @@ public:
 
 	inline VOID Init() const
 	{
-		m_rGameLib.CreateTex(_T("NewGame"), _T("2DTextures/rect.png"));
-		m_rGameLib.CreateTex(_T("LoadGame"), _T("2DTextures/lockOn.png"));
+		m_rGameLib.CreateTex(_T("NewGame"), _T("2DTextures/Title/TitleMenuNewGame.png"));
+		m_rGameLib.CreateTex(_T("LoadGame"), _T("2DTextures/Title/TitleMenuLoadGame.png"));
 		m_rGameLib.CreateTex(_T("EndGame"), _T("2DTextures/Title/TitleMenuEndGame.png"));
 	}	
 

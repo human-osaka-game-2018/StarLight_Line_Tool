@@ -1,4 +1,14 @@
-﻿#ifndef COLLISION_H
+﻿/// <filename>
+/// Collision.h
+/// </filename>
+/// <summary>
+/// 当たり判定クラスのヘッダ
+/// </summary>
+/// <author>
+/// Harutaka-Tsujino
+/// </author>
+
+#ifndef COLLISION_H
 #define COLLISION_H
 
 #include <windows.h>
@@ -8,6 +18,9 @@
 #include "../DX/DX3D/CustomVertexEditor/Data/ObjData.h"
 #include "../DX/DX3D/CustomVertexEditor/Data/CustomVertex.h"
 
+/// <summary>
+/// 衝突しているかを判断する
+/// </summary>
 class Collision
 {
 public:

@@ -1,4 +1,14 @@
-﻿#ifndef STAGE_EDIT_SCENE_OBJ_H
+﻿/// <filename>
+/// StageEditSceneObj.h
+/// </filename>
+/// </summary>
+/// ステージ作成シーンで扱うオブジェクトのクラスのヘッダ
+/// </summary>
+/// <author>
+/// Harutaka-Tsujino
+/// </author>
+
+#ifndef STAGE_EDIT_SCENE_OBJ_H
 #define STAGE_EDIT_SCENE_OBJ_H
 
 #include <windows.h>
@@ -25,7 +35,7 @@
 class StageEditBack :public Obj
 {
 public:
-	StageEditBack(const INT& rBeatsNum, const FLOAT& rScrollBottom) :Obj(OT_BACK, 1.0f), m_rBeatsNum(rBeatsNum), m_rScrollBottom(rScrollBottom)
+	StageEditBack(const INT& rBeatsNum, const FLOAT& rScrollBottom) :Obj(OT_BACK, 1.0f), m_rNoteNum(rBeatsNum), m_rScrollBottom(rScrollBottom)
 	{
 		Init();
 	}
@@ -37,6 +47,7 @@ public:
 
 	inline VOID Init() const
 	{
+		m_rGameLib.CreateTex(_T("Back"), _T("2DTextures/StageEdit/StageEditBack.png"));
 		m_rGameLib.CreateTex(_T("16Back"), _T("2DTextures/StageEdit/16BeatsBack.png"));
 		m_rGameLib.CreateTex(_T("8Back"), _T("2DTextures/StageEdit/8BeatsBack.png"));
 		m_rGameLib.CreateTex(_T("4Back"), _T("2DTextures/StageEdit/4BeatsBack.png"));
@@ -49,7 +60,7 @@ public:
 	VOID Render();
 
 private:
-	const INT& m_rBeatsNum;
+	const INT& m_rNoteNum;
 
 	const FLOAT& m_rScrollBottom;
 };
@@ -72,8 +83,6 @@ public:
 
 	inline VOID Init()
 	{
-		ZeroMemory(m_starNums, sizeof(INT) * STAR_MAX);
-
 		m_rGameLib.CreateTex(_T("StarSelectIcon"), _T("2DTextures/StageEdit/StarSelectIcon.png"));
 	}
 
@@ -85,8 +94,19 @@ private:
 	struct StarData
 	{
 		INT starType = STAR_SCORE;
+
 		ObjData m_objData;
 		CustomVertex m_customVertices[4];
+	};
+
+	struct StarNum
+	{
+		static const INT m_DIGITS_NUM = 4;
+		INT m_num = 0;
+		INT m_digitNums[m_DIGITS_NUM];
+
+		ObjData m_objData[m_DIGITS_NUM];
+		CustomVertex m_customVertices[4 * m_DIGITS_NUM];
 	};
 
 	const FLOAT& m_rScrollBottom;
@@ -94,7 +114,7 @@ private:
 	INT m_selectingStarType = STAR_DAMAGE;
 	CustomVertex m_select[4 * STAR_MAX];
 
-	INT m_starNums[STAR_MAX];	//! Init()で初期化
+	StarNum m_starNums[STAR_MAX];
 
 	std::vector<StarData*> m_pStarDataVec;
 };
