@@ -103,7 +103,7 @@ LRESULT CALLBACK Wnd::WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam
 		break;
 
 	case WM_SYSKEYDOWN:										// Alt + 特殊キーの処理に使う
-		if (wParam == VK_RETURN) PostQuitMessage(0);		//プログラムの終了メッセージを投げる
+		if (wParam == VK_BACK) PostQuitMessage(0);			//プログラムの終了メッセージを投げる
 	
 		break;
 	}
