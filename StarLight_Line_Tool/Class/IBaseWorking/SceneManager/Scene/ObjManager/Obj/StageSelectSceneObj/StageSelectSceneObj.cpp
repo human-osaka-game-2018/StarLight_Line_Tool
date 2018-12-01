@@ -62,7 +62,7 @@ VOID StageSelectSceneStageList::Render()
 {
 	if (m_isDecided) m_rGameLib.AddtionBlendMode();
 
-	const D3DXVECTOR3 ICONS_CENTER = { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.4f, m_Z };	//! 現物合わせ
+	const D3DXVECTOR3 ICONS_CENTER = { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.4f, m_z };	//! 現物合わせ
 	const FLOAT ICONS_CIRCLE_RADIUS_MAX = 230.0f;											//! 複数のアイコンがなす円の半径の最大値
 	static FLOAT iconsCircleRadius = ICONS_CIRCLE_RADIUS_MAX;								//! 複数のアイコンがなす円の半径
 
@@ -138,7 +138,7 @@ VOID StageSelectSceneStageList::Render()
 	if (iconsCircleRadius == 0.0f) return;
 
 	ObjData backButtonData;
-	backButtonData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.96f, m_Z };					//! 現物合わせ
+	backButtonData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.96f, m_z };					//! 現物合わせ
 	backButtonData.m_halfScale	= { m_WND_SIZE.m_x * 0.05f, m_WND_SIZE.m_y * 0.04f, 0.0f };					//! 現物合わせ
 
 	backButtonData.m_aRGB = D3DCOLOR_ARGB(
@@ -219,7 +219,7 @@ VOID StageSelectSceneLevelSelecter::Update()
 VOID StageSelectSceneLevelSelecter::Render()
 {
 	ObjData backData;
-	backData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, m_Z };
+	backData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, m_z };
 	backData.m_halfScale	= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, 0.0f };
 
 	static INT alpha = 0;
@@ -241,7 +241,7 @@ VOID StageSelectSceneLevelSelecter::Render()
 	m_rGameLib.Render(back, m_rGameLib.GetTex(_T("LevelBack")));
 
 	ObjData selectData;
-	selectData.m_center		= { m_WND_SIZE.m_x * 0.22f + m_WND_SIZE.m_x * 0.28f * m_level, m_WND_SIZE.m_y * 0.7f, m_Z };	//! 現物合わせ
+	selectData.m_center		= { m_WND_SIZE.m_x * 0.22f + m_WND_SIZE.m_x * 0.28f * m_level, m_WND_SIZE.m_y * 0.7f, m_z };	//! 現物合わせ
 	selectData.m_halfScale	= { m_WND_SIZE.m_x * 0.1f, m_WND_SIZE.m_y * 0.05f, 0.0f };										//! 現物合わせ
 
 	selectData.m_aRGB = D3DCOLOR_ARGB(alpha, 255, 255, 255);
@@ -253,7 +253,7 @@ VOID StageSelectSceneLevelSelecter::Render()
 	m_rGameLib.Render(select, m_rGameLib.GetTex(_T("LevelSelectFrame")));
 
 	ObjData backButtonData;
-	backButtonData.m_center		= { m_WND_SIZE.m_x * 0.14f, m_WND_SIZE.m_y * 0.17f, m_Z };									//! 現物合わせ
+	backButtonData.m_center		= { m_WND_SIZE.m_x * 0.14f, m_WND_SIZE.m_y * 0.17f, m_z };									//! 現物合わせ
 	backButtonData.m_halfScale	= { m_WND_SIZE.m_y * 0.05f, m_WND_SIZE.m_y * 0.05f, 0.0f };									//! 現物合わせ
 
 	backButtonData.m_aRGB = D3DCOLOR_ARGB(alpha, 0, 0, 0);
@@ -267,7 +267,7 @@ VOID StageSelectSceneLevelSelecter::Render()
 	if (!m_sceneTranlationAlpha) return;
 
 	ObjData sceneTranslationData;
-	sceneTranslationData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, m_Z };
+	sceneTranslationData.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, m_z };
 	sceneTranslationData.m_halfScale	= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.5f, 0.0f };
 
 	sceneTranslationData.m_aRGB = D3DCOLOR_ARGB(m_sceneTranlationAlpha, 255, 255, 255);

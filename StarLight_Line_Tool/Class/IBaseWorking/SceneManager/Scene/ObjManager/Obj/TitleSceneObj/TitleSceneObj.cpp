@@ -23,7 +23,7 @@ VOID TitleMenu::Render()
 
 	for (INT i = 0; i < MK_MAX; ++i)
 	{
-		data.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * (0.65f + 0.07f * i), m_Z };	//! 現物合わせ
+		data.m_center		= { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * (0.65f + 0.07f * i), m_z };	//! 現物合わせ
 		data.m_halfScale	= { m_WND_SIZE.m_x * 0.055f, m_WND_SIZE.m_y * 0.029f ,0.0f };			//! 現物合わせ
 		if (i == m_CENTER_MENU) data.m_halfScale *= CENTER_MENU_SCALE_MULTI;
 
@@ -152,7 +152,7 @@ VOID TitleCometEffect::InitEffect(EffectData* pEffectDatas)
 	pEffectDatas->m_data.m_center = {																//! エフェクトの初期位置は乱数を用いて画面の範囲で決定する
 		static_cast<float>(rand() % m_WND_SIZE.m_x + m_WND_SIZE.m_x * 1.5f),
 		-static_cast<float>(rand() % (m_WND_SIZE.m_y * 2) + m_WND_SIZE.m_y * 1.0f),
-		m_Z };
+		m_z };
 	pEffectDatas->m_data.m_halfScale = { m_WND_SIZE.m_x * 0.01f, m_WND_SIZE.m_y * 2.0f, 0.0f };	//! 現物合わせ
 
 	pEffectDatas->m_data.m_aRGB = EFFECT_COLORS[rand() % EFFECT_COLORS_MAX];
