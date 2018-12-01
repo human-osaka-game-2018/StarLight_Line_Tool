@@ -528,7 +528,7 @@ VOID StageEditStars::SetStarDealWithCollidesCursorDivide(INT noteNum, POINT curs
 		}
 	}
 
-	const FLOAT COLLISION_TOLERANCE = 15.0f;															//!誤差なので+-
+	const FLOAT COLLISION_TOLERANCE = 15.0f;															//! 誤差なので+-
 
 	FLOAT FIRST_DIVIDE_POS = clickedMeasureBottom - BEAT_LENGTH * m_beatElementNum - noteLength / 2;	//! 初めの区切りの位置は半分のサイズずれる
 	FLOAT DIVIDE_POS = NULL;
