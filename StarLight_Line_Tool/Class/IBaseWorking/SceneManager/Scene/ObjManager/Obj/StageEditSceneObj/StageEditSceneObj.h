@@ -35,7 +35,8 @@
 class StageEditBack :public Obj
 {
 public:
-	StageEditBack(const INT& rBeatsNum, const FLOAT& rScrollBottom) :Obj(OT_BACK, 1.0f), m_rNoteNum(rBeatsNum), m_rScrollBottom(rScrollBottom)
+	StageEditBack(const INT& rBeatsNum, const FLOAT& rScrollBottom) :Obj(OT_BACK, 1.0f),
+		m_rNoteNum(rBeatsNum), m_rScrollBottom(rScrollBottom)
 	{
 		Init();
 	}
@@ -47,7 +48,7 @@ public:
 
 	inline VOID Init() const
 	{
-		m_rGameLib.CreateTex(_T("Back"), _T("2DTextures/StageEdit/StageEditBack.png"));
+		m_rGameLib.CreateTex(_T("Back"), _T("2DTextures/StageEdit/StageEditBack.jpg"));
 		m_rGameLib.CreateTex(_T("16Back"), _T("2DTextures/StageEdit/16BeatsBack.png"));
 		m_rGameLib.CreateTex(_T("8Back"), _T("2DTextures/StageEdit/8BeatsBack.png"));
 		m_rGameLib.CreateTex(_T("4Back"), _T("2DTextures/StageEdit/4BeatsBack.png"));
@@ -57,12 +58,15 @@ public:
 
 	inline VOID Update() {};
 
+	/// <summary>
+	/// 背景を分数によって切替 スクロールに合わせてTUTVをずらす
+	/// </summary>
 	VOID Render();
 
 private:
-	const INT& m_rNoteNum;
+	const INT& m_rNoteNum;			//! 分数
 
-	const FLOAT& m_rScrollBottom;
+	const FLOAT& m_rScrollBottom;	//! スクロール量と同じ+
 };
 
 /// <summary>
@@ -90,8 +94,15 @@ public:
 		m_rGameLib.CreateTex(_T("Nums"), _T("2DTextures/StageEdit/Nums.png"));
 	}
 
+	/// <summary>
+	/// 分を変更する
+	/// </summary>
 	VOID Update();
 
+	/// <summary>
+	/// 分のボタンなどを描画する
+	/// </summary>
+	/// <returns></returns>
 	VOID Render();
 
 	inline const INT& NoteNum() const
@@ -117,19 +128,20 @@ private:
 };
 
 /// <summary>
-/// ステージの節 節単位でBPMを変えられる
+/// 節のBPMの変更
 /// </summary>
-class StageEditMeasures :public Obj
+class StageEditMeasureBPM :public Obj
 {
 public:
-	StageEditMeasures(const FLOAT& rScrollBottom) :Obj(OT_TRANSPARENCY, 0.9f), m_rScrollBottom(rScrollBottom)
+	StageEditMeasureBPM(const FLOAT& rScrollBottom, const INT& rMeasuresNum) :Obj(OT_TRANSPARENCY, 0.9f),
+		m_rScrollBottom(rScrollBottom), m_MEASURES_NUM(rMeasuresNum)
 	{
 		Init();
 	}
 
-	~StageEditMeasures()
+	~StageEditMeasureBPM()
 	{
-		for (Measure* pI : m_pMeasureVec)
+		for (MeasureBPM* pI : m_pMeasureBPMVec)
 		{
 			delete pI;
 		}
@@ -139,21 +151,26 @@ public:
 
 	inline VOID Init()
 	{
-		m_pMeasureVec.push_back(new Measure);
+		for (INT i = 0; i < m_MEASURES_NUM; ++i)
+		{
+			m_pMeasureBPMVec.push_back(new MeasureBPM);
+		}
 
-		m_rGameLib.CreateTex(_T("AddMeasure"), _T("2DTextures/StageEdit/AddMeasureButton.png"));
-		m_rGameLib.CreateTex(_T("DeleteMeasure"), _T("2DTextures/StageEdit/DeleteMeasureButton.png"));
 		m_rGameLib.CreateTex(_T("BPMButton"), _T("2DTextures/StageEdit/BPMNumButton.png"));
 	}
 
 	VOID Update();
 
-	VOID Render();
-
-	inline INT MeasuresNum() const
+	VOID Render()
 	{
-		return m_measuresNum;
+		for (INT i = 0; i < m_MEASURES_NUM; ++i)
+		{
+			RenderMeasureBPM(i);
+			RenderBPMSetter(i);
+		}
 	}
+
+	INT CurrentMeasureBPM() const;
 
 	inline const BOOL IsChanged() const
 	{
@@ -161,12 +178,12 @@ public:
 	}
 
 private:
-	struct Measure
+	struct MeasureBPM
 	{
 	public:
 		static const INT m_DIGITS_MAX = 3;				//! BPMの桁数
 
-		INT m_digitBPMs[m_DIGITS_MAX] = { 1, 5, 0 };	//! デフォルトのBPM
+		INT m_digitBPMs[m_DIGITS_MAX] = { 0, 9, 0 };	//! デフォルトのBPM
 
 		ObjData m_bPMDatas[m_DIGITS_MAX];
 		CustomVertex m_bPM[4 * m_DIGITS_MAX];
@@ -180,7 +197,7 @@ private:
 
 	VOID SetBPMDealWithClickedSetter(INT elementNum, const CustomVertex* pCursor);
 
-	VOID RenderMeasure(INT elementNum);
+	VOID RenderMeasureBPM(INT elementNum);
 
 	VOID RenderBPMSetter(INT elementNum);
 
@@ -204,20 +221,140 @@ private:
 
 	BOOL m_isChanged = FALSE;
 
-	INT m_measuresNum = 1;
-	std::vector<Measure*> m_pMeasureVec;
-
-	CustomVertex m_measureAdder[4];
-	CustomVertex m_measureDeleter[4];
+	const INT& m_MEASURES_NUM;
+	std::vector<MeasureBPM*> m_pMeasureBPMVec;
 };
 
 /// <summary>
-/// ステージ配置する星
+/// ステージの節の追加 削除
+/// </summary>
+class StageEditMeasures :public Obj
+{
+public:
+	StageEditMeasures(const FLOAT& rScrollBottom) :Obj(OT_TRANSPARENCY, 0.9f), m_rScrollBottom(rScrollBottom)
+	{
+		Init();
+	}
+
+	~StageEditMeasures()
+	{
+		delete m_pStageEditMeasureBPM;
+		m_rGameLib.ReleaseTex();
+	}
+
+	inline VOID Init()
+	{
+		m_pStageEditMeasureBPM = new StageEditMeasureBPM(m_rScrollBottom, m_measuresNum);
+
+		m_rGameLib.CreateTex(_T("AddMeasure"), _T("2DTextures/StageEdit/AddMeasureButton.png"));
+		m_rGameLib.CreateTex(_T("DeleteMeasure"), _T("2DTextures/StageEdit/DeleteMeasureButton.png"));
+	}
+
+	VOID Update();
+
+	VOID Render();
+
+	inline INT MeasuresNum() const
+	{
+		return m_measuresNum;
+	}
+
+	inline const BOOL IsChanged() const
+	{
+		BOOL isChanged = (m_pStageEditMeasureBPM->IsChanged() || m_isChanged);
+
+		return isChanged;
+	}
+
+	INT CurrentMeasureBPM() const
+	{
+		return m_pStageEditMeasureBPM->CurrentMeasureBPM();
+	}
+
+private:
+	const FLOAT& m_rScrollBottom;
+
+	BOOL m_isChanged = FALSE;
+
+	INT m_measuresNum = 1;
+
+	CustomVertex m_measureAdder[4];
+	CustomVertex m_measureDeleter[4];
+
+	StageEditMeasureBPM* m_pStageEditMeasureBPM = nullptr;
+};
+
+/// <summary>
+/// ステージに置く星の種類を決める
+/// </summary>
+class StageEditStarSelecter :public Obj
+{
+public:
+	StageEditStarSelecter() :Obj(OT_TRANSPARENCY, 0.9f)
+	{
+		Init();
+	}
+
+	~StageEditStarSelecter()
+	{
+		m_rGameLib.ReleaseTex();
+	}
+
+	inline VOID Init()
+	{
+		m_rGameLib.CreateTex(_T("StarSelectIcon"), _T("2DTextures/StageEdit/StarSelectIcon.png"));
+	}
+
+	VOID Update();
+
+	VOID Render();
+
+	inline const BOOL IsChanged() const
+	{
+		return m_isChanged;
+	}
+
+	inline INT StarType()
+	{
+		return m_selectingStarType;
+	}
+
+	inline VOID SetStarNum(INT starType, BOOL isIncreased)
+	{
+		m_starIcon[starType].m_num += ((isIncreased) ? 1 : -1);
+	}
+
+private:
+	struct StarIcon
+	{
+		ObjData m_iconData;
+		CustomVertex m_icon[4];
+
+		static const INT m_DIGITS_NUM = 4;
+		INT m_num = 0;
+		INT m_digitNums[m_DIGITS_NUM];
+
+		ObjData m_digitNumData[m_DIGITS_NUM];
+		CustomVertex m_digitNum[4 * m_DIGITS_NUM];
+	};
+
+	VOID RenderStarNum(INT StarIconArrayNum);
+
+	BOOL m_isChanged = FALSE;
+
+	INT m_selectingStarType = STAR_DAMAGE;
+	
+	StarIcon m_starIcon[STAR_MAX];
+};
+
+/// <summary>
+/// ステージに配置する星
 /// </summary>
 class StageEditStars :public Obj
 {
 public:
-	StageEditStars(const FLOAT& rScrollBottom) :Obj(OT_TRANSPARENCY, 0.9f), m_rScrollBottom(rScrollBottom)
+	StageEditStars(const FLOAT& rScrollBottom) :Obj(OT_TRANSPARENCY, 0.9f), 
+		m_rScrollBottom(rScrollBottom), m_STAR_HALF_SCALE(m_WND_SIZE.m_y * 0.04f)
 	{
 		Init();
 	}
@@ -229,6 +366,7 @@ public:
 			delete pI;
 		}
 		
+		delete m_pStageEditStarSelecter;
 		delete m_pStageEditMeasures;
 		delete m_pStageEditNote;
 		m_rGameLib.ReleaseTex();
@@ -240,8 +378,10 @@ public:
 
 		m_pStageEditMeasures = new StageEditMeasures(m_rScrollBottom);
 
-		m_rGameLib.CreateTex(_T("StarSelectIcon"), _T("2DTextures/StageEdit/StarSelectIcon.png"));
+		m_pStageEditStarSelecter = new StageEditStarSelecter();
+
 		m_rGameLib.CreateTex(_T("StarNote"), _T("2DTextures/StageEdit/StarNote.png"));
+		m_rGameLib.CreateTex(_T("Vector"), _T("2DTextures/StageEdit/Vector.png"));
 	}
 
 	VOID Update();
@@ -251,6 +391,21 @@ public:
 	INT MeasuresNum()
 	{
 		return m_pStageEditMeasures->MeasuresNum();
+	}
+
+	VOID StartPreview(FLOAT ySpeed);
+
+	VOID EndPreview()
+	{
+		for (StarData* pI : m_pStarDataVec)
+		{
+			pI->m_xMovement = NULL;
+		}
+	}
+
+	inline INT CurrentMeasureBPM() const
+	{
+		return m_pStageEditMeasures->CurrentMeasureBPM();
 	}
 
 private:
@@ -264,37 +419,37 @@ private:
 		INT m_divideNum = 0;
 
 		FLOAT m_x = 0.0f;
+		FLOAT m_xMovement = 0.0f;
+
+		FLOAT m_deg = 0.0f;
+
+		BOOL m_isActiveChangingVector = FALSE;
 
 		ObjData m_objData;
 		CustomVertex m_customVertices[4];
 	};
 
-	struct StarNum
-	{
-		static const INT m_DIGITS_NUM = 4;
-		INT m_num = 0;
-		INT m_digitNums[m_DIGITS_NUM];
-
-		ObjData m_objData[m_DIGITS_NUM];
-		CustomVertex m_customVertices[4 * m_DIGITS_NUM];
-	};
-
 	VOID SetStarDealWithCollidesCursorDivide(INT noteNum, POINT cursorPoint);
+	
+	VOID ChangeStarDataDeg();
+
+	VOID DeleteClickedStarData(CustomVertex* pCusrsor);
+
+	VOID RenderStarData();
+
+	VOID RenderStarVector();
 
 	const FLOAT& m_rScrollBottom;
 
-	INT m_selectingStarType = STAR_DAMAGE;
-	CustomVertex m_select[4 * STAR_MAX];
-
-	StarNum m_starNums[STAR_MAX];
+	const FLOAT m_STAR_HALF_SCALE;
 
 	std::vector<StarData*> m_pStarDataVec;
 
-	INT m_measureElementNum = NULL;
 	INT m_beatElementNum	= NULL;
 
 	StageEditNote* m_pStageEditNote = nullptr;
 	StageEditMeasures* m_pStageEditMeasures = nullptr;
+	StageEditStarSelecter* m_pStageEditStarSelecter = nullptr;
 };
 
 /// <summary>
@@ -317,39 +472,23 @@ public:
 	inline VOID Init()
 	{
 		m_pStageEditStars	= new StageEditStars(m_scrollBottom);
+
+		m_rGameLib.CreateTex(_T("Preview"), _T("2DTextures/StageEdit/Preview.png"));
 	}
 
-	inline VOID Update()
-	{
-		const INT BEATS_NUM_IN_MEASURE = 4;
+	VOID Update();
 
-		FLOAT scrollMax		= static_cast<FLOAT>(m_WND_SIZE.m_y * BEATS_NUM_IN_MEASURE * m_pStageEditStars->MeasuresNum());
-		FLOAT SCROLL_SPEED	= 20.0f;
-
-		if (m_rGameLib.KeyboardIsHeld(DIK_UP))
-		{
-			m_scrollBottom = (m_scrollBottom + SCROLL_SPEED > scrollMax) ? scrollMax : m_scrollBottom + SCROLL_SPEED;
-		}
-
-		if (m_rGameLib.KeyboardIsHeld(DIK_DOWN))
-		{
-			m_scrollBottom = (m_scrollBottom - SCROLL_SPEED < 0.0f) ? 0.0f : m_scrollBottom - SCROLL_SPEED;
-		}
-
-		m_pStageEditStars->Update();
-	}
-
-	inline VOID Render()
-	{
-		m_pStageEditStars->Render();
-	}
+	VOID Render();
 
 private:
-	StageEditStars* m_pStageEditStars		= nullptr;
-
 	FLOAT m_scrollBottom = 0.0f;
 	INT m_noteNum = 0;
 	INT m_measureNum = 0;
+
+	BOOL m_previews = FALSE;
+	CustomVertex m_preview[4];
+
+	StageEditStars* m_pStageEditStars = nullptr;
 };
 
 #endif //! STAGE_EDIT_SCENE_OBJ_H
