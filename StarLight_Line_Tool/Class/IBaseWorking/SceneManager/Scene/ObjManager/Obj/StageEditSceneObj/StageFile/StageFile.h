@@ -93,6 +93,8 @@ private:
 	}
 
 	std::string StagePath;
+
+	CHAR m_separator = ',';
 };
 
 #endif // !STAGE_FILE_H

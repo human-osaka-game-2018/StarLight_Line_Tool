@@ -41,7 +41,10 @@ VOID StageFile::ReadMeasureBPM(std::ifstream* pIfs, const INT& measuresNum, std:
 
 		std::getline(*pIfs, lineBuf);
 
-		std::replace(lineBuf.begin(), lineBuf.end(), ',', ' ');
+		std::replace(
+				lineBuf.begin(), 
+				lineBuf.end(), 
+				m_separator, ' ');
 		std::istringstream issb(lineBuf);
 
 		issb >> bPM;
@@ -66,7 +69,7 @@ VOID StageFile::ReadStarNums(std::ifstream* pIfs, StarIcon* pStarIcon)
 	std::replace(
 			lineBuf.begin(),
 			lineBuf.end(),
-			',', ' ');
+			m_separator, ' ');
 	std::istringstream isss(lineBuf);
 
 	isss >> pStarIcon[STAR_DAMAGE].m_num	>>
@@ -93,7 +96,7 @@ VOID StageFile::ReadStarData(std::ifstream* pIfs, const StarIcon* pStarIcon, std
 		std::replace(
 			lineBuf.begin(),
 			lineBuf.end(),
-			',', ' ');
+			m_separator, ' ');
 		std::istringstream isss(lineBuf);
 
 		isss >> pStarData->m_starType	>>
@@ -113,9 +116,7 @@ VOID StageFile::WriteStageData(INT measuresNum, const std::vector<MeasureBPM*>& 
 {
 	std::ofstream ofs(StagePath, std::ios::trunc);
 
-	CHAR separator = ',';
-
-	ofs << measuresNum << separator << std::endl;
+	ofs << measuresNum << m_separator << std::endl;
 
 	INT bPM = NULL;
 
@@ -131,31 +132,31 @@ VOID StageFile::WriteStageData(INT measuresNum, const std::vector<MeasureBPM*>& 
 			bPM += pI->m_digitBPMs[i] * static_cast<INT>(pow(DIGIT_OVER, DIGITS_MAX - 1 - i));
 		}
 
-		ofs << bPM << separator << std::endl;
+		ofs << bPM << m_separator << std::endl;
 	}
 
 	ofs << pStarIcon[STAR_DAMAGE].m_num <<
-		separator <<
-		pStarIcon[STAR_SCORE].m_num <<
-		separator <<
-		pStarIcon[STAR_CLEAR].m_num <<
+		m_separator						<<
+		pStarIcon[STAR_SCORE].m_num		<<
+		m_separator						<<
+		pStarIcon[STAR_CLEAR].m_num		<<
 		std::endl;
 
 	for (StarData* pI : pStarDataVec)
 	{
-		ofs << pI->m_starType <<
-			separator <<
-			pI->m_measureNum <<
-			separator <<
-			pI->m_beatNum <<
-			separator <<
-			pI->m_noteNum <<
-			separator <<
-			pI->m_divideNum <<
-			separator <<
-			pI->m_x <<
-			separator <<
-			pI->m_deg <<
+		ofs << pI->m_starType	<<
+			m_separator			<<
+			pI->m_measureNum	<<
+			m_separator			<<
+			pI->m_beatNum		<<
+			m_separator			<<
+			pI->m_noteNum		<<
+			m_separator			<<
+			pI->m_divideNum		<<
+			m_separator			<<
+			pI->m_x				<<
+			m_separator			<<
+			pI->m_deg			<<
 			std::endl;
 	}
 
