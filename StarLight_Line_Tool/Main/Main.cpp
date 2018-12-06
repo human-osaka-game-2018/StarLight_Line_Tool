@@ -41,4 +41,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	GameLib& rGameLib = GameLib::GetInstance();
 
 	rGameLib.RunFunc(Func);
+
+	return 0;
 }
