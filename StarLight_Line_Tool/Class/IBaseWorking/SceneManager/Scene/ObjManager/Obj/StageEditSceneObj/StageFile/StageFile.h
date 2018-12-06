@@ -39,7 +39,10 @@ public:
 		std::string lineBuf;
 		std::getline(*pIfs, lineBuf);
 
-		std::replace(lineBuf.begin(), lineBuf.end(), ',', ' ');
+		std::replace(
+				lineBuf.begin(), 
+				lineBuf.end(), 
+				m_separator, ' ');
 		std::istringstream iss(lineBuf);
 
 		iss >> (*pMeasuresNum);
