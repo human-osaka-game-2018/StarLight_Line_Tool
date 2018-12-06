@@ -783,14 +783,16 @@ VOID StageEditStageEditor::Update()
 	FLOAT scrollMax = static_cast<FLOAT>(MEASURE_LENGTH * m_measuresNum);
 	FLOAT SCROLL_SPEED = 160.0f;
 
-	if (!m_previews && !m_pStageEditStars->CanChangeVector())
+	if (!m_previews)
 	{
-		if (m_rGameLib.MouseWheelScrollingFromPrev() > 0)
+		m_scrollBottom = min(max(m_scrollBottom, 0), scrollMax);
+
+		if (m_rGameLib.MouseWheelScrollingFromPrev() > 0 && !m_pStageEditStars->CanChangeVector())
 		{
 			m_scrollBottom = (m_scrollBottom + SCROLL_SPEED > scrollMax) ? scrollMax : m_scrollBottom + SCROLL_SPEED;
 		}
 
-		if (m_rGameLib.MouseWheelScrollingFromPrev() < 0)
+		if (m_rGameLib.MouseWheelScrollingFromPrev() < 0 && !m_pStageEditStars->CanChangeVector())
 		{
 			m_scrollBottom = (m_scrollBottom - SCROLL_SPEED < 0.0f) ? 0.0f : m_scrollBottom - SCROLL_SPEED;
 		}
