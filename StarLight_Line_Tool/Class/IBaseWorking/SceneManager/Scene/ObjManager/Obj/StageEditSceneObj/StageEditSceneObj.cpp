@@ -407,7 +407,7 @@ VOID StageEditStarSelecter::Update()
 
 	for (INT i = 0; i < STAR_MAX; ++i)
 	{
-		if (!m_rGameLib.CollidesCircles(m_starIcon[i].m_icon, cursor)) continue;
+		if (!m_rGameLib.CollidesCircles(m_starIcons[i].m_icon, cursor)) continue;
 
 		m_selectingStarType = i;
 
@@ -440,7 +440,7 @@ VOID StageEditStarSelecter::Render()
 
 	for (INT si = 0; si < STAR_MAX; ++si)
 	{
-		pIconData = &m_starIcon[si].m_iconData;
+		pIconData = &m_starIcons[si].m_iconData;
 
 		pIconData->m_center		= { m_WND_SIZE.m_x * 0.05f, m_WND_SIZE.m_y * (0.7f + 0.11f * si), m_z };	//! 現物合わせ
 		pIconData->m_halfScale	= { SELECT_HALF_SCALE, SELECT_HALF_SCALE, 0.0f };							//! 現物合わせ
@@ -448,7 +448,7 @@ VOID StageEditStarSelecter::Render()
 		pIconData->m_aRGB = STAR_COLORS[si];
 		if (si == m_selectingStarType) pIconData->m_aRGB = SELECTING_STAR_COLORS[si];
 
-		pIcon = m_starIcon[si].m_icon;
+		pIcon = m_starIcons[si].m_icon;
 
 		m_rGameLib.CreateRect(	pIcon, *pIconData);
 		m_rGameLib.Render(		pIcon, m_rGameLib.GetTex(_T("StarSelectIcon")));
@@ -472,17 +472,19 @@ VOID StageEditStarSelecter::RenderStarNum(INT StarIconArrayNum)
 	const INT NUMS_NUM_IN_ROW		= 8;
 	const INT NUMS_NUM_IN_COLUMN	= 2;
 
+	const INT DIGIT_OVER = 10;
+
 	for (INT di = 0; di < StarIcon::m_DIGITS_NUM; ++di)
 	{
-		pStarNumDigitData = &m_starIcon[StarIconArrayNum].m_digitNumData[di];
+		pStarNumDigitData = &m_starIcons[StarIconArrayNum].m_digitNumData[di];
 
-		pStarNumDigitData->m_center		=	m_starIcon[StarIconArrayNum].m_iconData.m_center;
+		pStarNumDigitData->m_center		=	m_starIcons[StarIconArrayNum].m_iconData.m_center;
 		pStarNumDigitData->m_center.x	+=	7 * NUM_HALF_SCALE + di * NUMS_GAP;
 
 		pStarNumDigitData->m_halfScale = { NUM_HALF_SCALE, NUM_HALF_SCALE, 0.0f };
 
-		digitNum =	m_starIcon[StarIconArrayNum].m_digitNums[di] =
-					(m_starIcon[StarIconArrayNum].m_num / static_cast<INT>(pow(10, di))) % 10;	//! 一桁ずつの値を抽出
+		digitNum =	m_starIcons[StarIconArrayNum].m_digitNums[di] =
+					(m_starIcons[StarIconArrayNum].m_num / static_cast<INT>(pow(DIGIT_OVER, di))) % DIGIT_OVER;	//! 一桁ずつの値を抽出
 
 		pStarNumDigitData->m_texUV =															//! 統合ファイルのテクスチャの座標
 		{
@@ -492,7 +494,7 @@ VOID StageEditStarSelecter::RenderStarNum(INT StarIconArrayNum)
 			NUMS_ILLUST_SCALE * (digitNum / NUMS_NUM_IN_ROW + 1)	/ (NUMS_ILLUST_SCALE * NUMS_NUM_IN_COLUMN),
 		};
 
-		pStarDigitNum = &m_starIcon[StarIconArrayNum].m_digitNum[4 * di];
+		pStarDigitNum = &m_starIcons[StarIconArrayNum].m_digitNum[4 * di];
 
 		m_rGameLib.CreateRect(	pStarDigitNum, *pStarNumDigitData);
 		m_rGameLib.Render(		pStarDigitNum, m_rGameLib.GetTex(_T("Nums")));
@@ -647,7 +649,7 @@ VOID StageEditStars::SetStarDealWithCollidesCursorDivide(INT noteNum, POINT curs
 
 VOID StageEditStars::ChangeStarDataDeg()
 {
-	const FLOAT DEG_MAX = 75.0f;
+	const FLOAT DEG_MAX = 85.0f;
 
 	FLOAT starYPos = NULL;
 
@@ -776,17 +778,22 @@ VOID StageEditStageEditor::Update()
 	const INT BEATS_NUM_IN_MEASURE = 4;
 	const FLOAT MEASURE_LENGTH = static_cast<FLOAT>(m_WND_SIZE.m_y) * BEATS_NUM_IN_MEASURE;
 
-	FLOAT scrollMax = static_cast<FLOAT>(MEASURE_LENGTH * m_pStageEditStars->MeasuresNum());
-	FLOAT SCROLL_SPEED = 20.0f;
+	m_measuresNum = m_pStageEditStars->GetMeasuresNum();
 
-	if (m_rGameLib.KeyboardIsHeld(DIK_UP) && !m_previews)
-	{
-		m_scrollBottom = (m_scrollBottom + SCROLL_SPEED > scrollMax) ? scrollMax : m_scrollBottom + SCROLL_SPEED;
-	}
+	FLOAT scrollMax = static_cast<FLOAT>(MEASURE_LENGTH * m_measuresNum);
+	FLOAT SCROLL_SPEED = 160.0f;
 
-	if (m_rGameLib.KeyboardIsHeld(DIK_DOWN) && !m_previews)
+	if (!m_previews && !m_pStageEditStars->CanChangeVector())
 	{
-		m_scrollBottom = (m_scrollBottom - SCROLL_SPEED < 0.0f) ? 0.0f : m_scrollBottom - SCROLL_SPEED;
+		if (m_rGameLib.MouseWheelScrollingFromPrev() > 0)
+		{
+			m_scrollBottom = (m_scrollBottom + SCROLL_SPEED > scrollMax) ? scrollMax : m_scrollBottom + SCROLL_SPEED;
+		}
+
+		if (m_rGameLib.MouseWheelScrollingFromPrev() < 0)
+		{
+			m_scrollBottom = (m_scrollBottom - SCROLL_SPEED < 0.0f) ? 0.0f : m_scrollBottom - SCROLL_SPEED;
+		}
 	}
 
 	POINT cursorPos;
@@ -802,13 +809,26 @@ VOID StageEditStageEditor::Update()
 
 	if (m_rGameLib.MouseIsPressed(DIM_LEFT))
 	{
-		if (m_rGameLib.CollidesRects(cursor, m_preview))
+		if (m_rGameLib.CollidesRects(cursor, m_preview) && m_measuresNum)
 		{
 			if (m_previews) m_pStageEditStars->EndPreview();
 
 			m_scrollBottom = NULL;
 
 			m_previews = !m_previews;
+
+			return;
+		}
+
+		if (m_rGameLib.CollidesRects(cursor, m_writeFileButton))
+		{
+			StageFile& rStageFile = StageFile::GetInstance();
+
+			rStageFile.WriteStageData(
+				m_pStageEditStars->GetMeasuresNum(),
+				m_pStageEditStars->GetPMeasureBPMVec(),
+				m_pStageEditStars->GetStarIcons(),
+				m_pStageEditStars->GetPStarDataVec());
 
 			return;
 		}
@@ -865,4 +885,11 @@ VOID StageEditStageEditor::Render()
 
 	m_rGameLib.CreateRect(	m_preview, previewData);
 	m_rGameLib.Render(		m_preview, m_rGameLib.GetTex(_T("Preview")));
+
+	ObjData writeFileButtonData;
+	writeFileButtonData.m_center	= { m_WND_SIZE.m_x * 0.96f, m_WND_SIZE.m_y * 0.04f, m_z };
+	writeFileButtonData.m_halfScale = { m_WND_SIZE.m_x * 0.04f, m_WND_SIZE.m_y * 0.04f, 0.0f };
+
+	m_rGameLib.CreateRect(	m_writeFileButton, writeFileButtonData);
+	m_rGameLib.Render(		m_writeFileButton, m_rGameLib.GetTex(_T("WriteFile")));
 }

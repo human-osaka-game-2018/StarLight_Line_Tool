@@ -62,12 +62,12 @@ VOID StageSelectSceneStageList::Render()
 {
 	if (m_isDecided) m_rGameLib.AddtionBlendMode();
 
-	const D3DXVECTOR3 ICONS_CENTER = { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.4f, m_z };	//! 現物合わせ
-	const FLOAT ICONS_CIRCLE_RADIUS_MAX = 230.0f;											//! 複数のアイコンがなす円の半径の最大値
-	static FLOAT iconsCircleRadius = ICONS_CIRCLE_RADIUS_MAX;								//! 複数のアイコンがなす円の半径
+	const D3DXVECTOR3 ICONS_CENTER = { m_WND_SIZE.m_x * 0.5f, m_WND_SIZE.m_y * 0.4f, m_z };				//! 現物合わせ
+	const FLOAT ICONS_CIRCLE_RADIUS_MAX = 230.0f;														//! 複数のアイコンがなす円の半径の最大値
+	static FLOAT iconsCircleRadius = ICONS_CIRCLE_RADIUS_MAX;											//! 複数のアイコンがなす円の半径
 
 	const INT DECIDE_STAGE_FRAMES = 60;
-	iconsCircleRadius += m_lengthMulti * ICONS_CIRCLE_RADIUS_MAX / DECIDE_STAGE_FRAMES;		//! DECIDE_STAGE_FRAMESで半径が最大値に達する
+	iconsCircleRadius += m_lengthMulti * ICONS_CIRCLE_RADIUS_MAX / DECIDE_STAGE_FRAMES;					//! DECIDE_STAGE_FRAMESで半径が最大値に達する
 	iconsCircleRadius = min(max(iconsCircleRadius, 0), ICONS_CIRCLE_RADIUS_MAX);
 
 	if (iconsCircleRadius == ICONS_CIRCLE_RADIUS_MAX ||
@@ -79,7 +79,7 @@ VOID StageSelectSceneStageList::Render()
 	}
 
 	D3DXMATRIX rotate;
-	const FLOAT DEG_GAP = 360.0f / m_STAGE_ICONS_MAX;										//! アイコンとアイコンの角度
+	const FLOAT DEG_GAP = 360.0f / m_STAGE_ICONS_MAX;													//! アイコンとアイコンの角度
 	FLOAT* pDeg = nullptr;
 
 	D3DXVECTOR3* pCenter = nullptr;

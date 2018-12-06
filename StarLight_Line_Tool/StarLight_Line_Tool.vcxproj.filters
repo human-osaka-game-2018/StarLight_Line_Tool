@@ -131,6 +131,12 @@
     <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum">
       <UniqueIdentifier>{a4bf03b8-d4c7-4160-adda-1c9593c1bad7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct">
+      <UniqueIdentifier>{5e9d6aee-7b2e-493c-809c-860b34bba063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile">
+      <UniqueIdentifier>{447056a8-d06b-4418-9520-01fccbdd6baa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class\Singleton\Singleton.cpp">
@@ -234,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="GameLib\Collision\Collision.cpp">
       <Filter>GameLib\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile\StageFile.cpp">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,6 +377,18 @@
     </ClInclude>
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum\Y_VEC.h">
       <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile\StageFile.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\StarData.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\StarIcon.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\MeasureBPM.h">
+      <Filter>Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

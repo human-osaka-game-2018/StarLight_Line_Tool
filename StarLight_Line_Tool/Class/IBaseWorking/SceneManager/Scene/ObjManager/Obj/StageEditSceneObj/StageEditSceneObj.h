@@ -25,6 +25,10 @@
 #include "../Obj.h"
 #include "Enum\STAR_TYPE.h"
 #include "Enum\Y_VEC.h"
+#include "Struct\StarData.h"
+#include "Struct\StarIcon.h"
+#include "Struct\MeasureBPM.h"
+#include "StageFile\StageFile.h"
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -151,10 +155,9 @@ public:
 
 	inline VOID Init()
 	{
-		for (INT i = 0; i < m_MEASURES_NUM; ++i)
-		{
-			m_pMeasureBPMVec.push_back(new MeasureBPM);
-		}
+		StageFile& rStageFile =  StageFile::GetInstance();
+
+		rStageFile.ReadMeasureBPM(&m_pMeasureBPMVec);
 
 		m_rGameLib.CreateTex(_T("BPMButton"), _T("2DTextures/StageEdit/BPMNumButton.png"));
 	}
@@ -177,24 +180,12 @@ public:
 		return m_isChanged;
 	}
 
-private:
-	struct MeasureBPM
+	inline const std::vector<MeasureBPM*>& GetPMeasureBPMVec() const
 	{
-	public:
-		static const INT m_DIGITS_MAX = 3;				//! BPMの桁数
+		return m_pMeasureBPMVec;
+	}
 
-		INT m_digitBPMs[m_DIGITS_MAX] = { 0, 9, 0 };	//! デフォルトのBPM
-
-		ObjData m_bPMDatas[m_DIGITS_MAX];
-		CustomVertex m_bPM[4 * m_DIGITS_MAX];
-
-		ObjData m_bPMUpperDatas[m_DIGITS_MAX];
-		CustomVertex m_bPMUppers[4 * m_DIGITS_MAX];
-
-		ObjData m_bPMDownerDatas[m_DIGITS_MAX];
-		CustomVertex m_bPMDowners[4 * m_DIGITS_MAX];
-	};
-
+private:
 	VOID SetBPMDealWithClickedSetter(INT elementNum, const CustomVertex* pCursor);
 
 	VOID RenderMeasureBPM(INT elementNum);
@@ -246,6 +237,10 @@ public:
 	{
 		m_pStageEditMeasureBPM = new StageEditMeasureBPM(m_rScrollBottom, m_measuresNum);
 
+		StageFile& rStageFile = StageFile::GetInstance();
+
+		rStageFile.ReadMeasureNum(&m_measuresNum);
+
 		m_rGameLib.CreateTex(_T("AddMeasure"), _T("2DTextures/StageEdit/AddMeasureButton.png"));
 		m_rGameLib.CreateTex(_T("DeleteMeasure"), _T("2DTextures/StageEdit/DeleteMeasureButton.png"));
 	}
@@ -253,11 +248,6 @@ public:
 	VOID Update();
 
 	VOID Render();
-
-	inline INT MeasuresNum() const
-	{
-		return m_measuresNum;
-	}
 
 	inline const BOOL IsChanged() const
 	{
@@ -271,12 +261,22 @@ public:
 		return m_pStageEditMeasureBPM->CurrentMeasureBPM();
 	}
 
+	inline INT GetMeasuresNum() const
+	{
+		return m_measuresNum;
+	}
+
+	inline const std::vector<MeasureBPM*>& GetPMeasureBPMVec() const
+	{
+		return m_pStageEditMeasureBPM->GetPMeasureBPMVec();
+	}
+
 private:
 	const FLOAT& m_rScrollBottom;
 
 	BOOL m_isChanged = FALSE;
 
-	INT m_measuresNum = 1;
+	INT m_measuresNum = 0;
 
 	CustomVertex m_measureAdder[4];
 	CustomVertex m_measureDeleter[4];
@@ -302,6 +302,10 @@ public:
 
 	inline VOID Init()
 	{
+		StageFile& rStageFile = StageFile::GetInstance();
+
+		rStageFile.ReadStarNums(m_starIcons);
+
 		m_rGameLib.CreateTex(_T("StarSelectIcon"), _T("2DTextures/StageEdit/StarSelectIcon.png"));
 	}
 
@@ -321,30 +325,22 @@ public:
 
 	inline VOID SetStarNum(INT starType, BOOL isIncreased)
 	{
-		m_starIcon[starType].m_num += ((isIncreased) ? 1 : -1);
+		m_starIcons[starType].m_num += ((isIncreased) ? 1 : -1);
+	}
+
+	inline const StarIcon* GetStarIcons() const
+	{
+		return m_starIcons;
 	}
 
 private:
-	struct StarIcon
-	{
-		ObjData m_iconData;
-		CustomVertex m_icon[4];
-
-		static const INT m_DIGITS_NUM = 4;
-		INT m_num = 0;
-		INT m_digitNums[m_DIGITS_NUM];
-
-		ObjData m_digitNumData[m_DIGITS_NUM];
-		CustomVertex m_digitNum[4 * m_DIGITS_NUM];
-	};
-
 	VOID RenderStarNum(INT StarIconArrayNum);
 
 	BOOL m_isChanged = FALSE;
 
 	INT m_selectingStarType = STAR_DAMAGE;
 	
-	StarIcon m_starIcon[STAR_MAX];
+	StarIcon m_starIcons[STAR_MAX];
 };
 
 /// <summary>
@@ -380,6 +376,10 @@ public:
 
 		m_pStageEditStarSelecter = new StageEditStarSelecter();
 
+		StageFile& rStageFile = StageFile::GetInstance();
+
+		rStageFile.ReadStarData(&m_pStarDataVec);
+
 		m_rGameLib.CreateTex(_T("StarNote"), _T("2DTextures/StageEdit/StarNote.png"));
 		m_rGameLib.CreateTex(_T("Vector"), _T("2DTextures/StageEdit/Vector.png"));
 	}
@@ -388,9 +388,9 @@ public:
 
 	VOID Render();
 
-	INT MeasuresNum()
+	INT GetMeasuresNum()
 	{
-		return m_pStageEditMeasures->MeasuresNum();
+		return m_pStageEditMeasures->GetMeasuresNum();
 	}
 
 	VOID StartPreview(FLOAT ySpeed);
@@ -407,28 +407,44 @@ public:
 	{
 		return m_pStageEditMeasures->CurrentMeasureBPM();
 	}
+	
+	inline BOOL CanChangeVector()
+	{
+		FLOAT starYPos = NULL;
+
+		for (StarData* pI : m_pStarDataVec)
+		{
+			starYPos = pI->m_objData.m_center.y;
+			if (starYPos < -m_STAR_HALF_SCALE ||
+				starYPos > m_WND_SIZE.m_y + m_STAR_HALF_SCALE) continue;
+
+			if (pI->m_isActiveChangingVector) return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	inline const std::vector<StarData*>& GetPStarDataVec()
+	{
+		return m_pStarDataVec;
+	}
+
+	inline const std::vector<MeasureBPM*>& GetPMeasureBPMVec() const
+	{
+		return m_pStageEditMeasures->GetPMeasureBPMVec();
+	}
+
+	inline INT GetMeasuresNum() const
+	{
+		return m_pStageEditMeasures->GetMeasuresNum();
+	}
+
+	inline const StarIcon* GetStarIcons() const
+	{
+		return m_pStageEditStarSelecter->GetStarIcons();
+	}
 
 private:
-	struct StarData
-	{
-		INT m_starType = STAR_SCORE;
-
-		INT m_measureNum = 0;
-		INT m_beatNum = 0;
-		INT m_noteNum = 0;
-		INT m_divideNum = 0;
-
-		FLOAT m_x = 0.0f;
-		FLOAT m_xMovement = 0.0f;
-
-		FLOAT m_deg = 0.0f;
-
-		BOOL m_isActiveChangingVector = FALSE;
-
-		ObjData m_objData;
-		CustomVertex m_customVertices[4];
-	};
-
 	VOID SetStarDealWithCollidesCursorDivide(INT noteNum, POINT cursorPoint);
 	
 	VOID ChangeStarDataDeg();
@@ -474,6 +490,7 @@ public:
 		m_pStageEditStars	= new StageEditStars(m_scrollBottom);
 
 		m_rGameLib.CreateTex(_T("Preview"), _T("2DTextures/StageEdit/Preview.png"));
+		m_rGameLib.CreateTex(_T("WriteFile"), _T("2DTextures/StageEdit/WriteFileButton.jpg"));
 	}
 
 	VOID Update();
@@ -482,11 +499,13 @@ public:
 
 private:
 	FLOAT m_scrollBottom = 0.0f;
-	INT m_noteNum = 0;
-	INT m_measureNum = 0;
+	INT m_noteNum		= 0;
+	INT m_measuresNum = 0;
 
 	BOOL m_previews = FALSE;
 	CustomVertex m_preview[4];
+
+	CustomVertex m_writeFileButton[4];
 
 	StageEditStars* m_pStageEditStars = nullptr;
 };

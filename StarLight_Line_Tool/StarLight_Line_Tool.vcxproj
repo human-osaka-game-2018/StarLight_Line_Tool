@@ -133,6 +133,7 @@
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\Obj.cpp" />
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\SaveDataSceneObj\SaveDataSceneObj.cpp" />
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageEditSceneObj.cpp" />
+    <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile\StageFile.cpp" />
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj\StageSelectSceneObj.cpp" />
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj\TitleSceneObj.cpp" />
     <ClCompile Include="Class\IBaseWorking\SceneManager\Scene\SaveDataScene\SaveDataScene.cpp" />
@@ -173,6 +174,10 @@
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum\STAR_TYPE.h" />
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Enum\Y_VEC.h" />
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageEditSceneObj.h" />
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\StageFile\StageFile.h" />
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\MeasureBPM.h" />
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\StarData.h" />
+    <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageEditSceneObj\Struct\StarIcon.h" />
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\StageSelectSceneObj\StageSelectSceneObj.h" />
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\ObjManager\Obj\TitleSceneObj\TitleSceneObj.h" />
     <ClInclude Include="Class\IBaseWorking\SceneManager\Scene\SaveDataScene\SaveDataScene.h" />
